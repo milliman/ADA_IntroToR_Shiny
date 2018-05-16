@@ -6,6 +6,7 @@ The repository includes:
 + an R markdown file (.Rmd) with some basic code
 + corresponding R script (.R) with all the code from the R markdown file 
 + basic Shiny application, built on top of RStudio and Shiny's default Old Faithfull Geyser application
++ fitting statistical models
 + the iris dataset, saved as both .csv and .RDS
 
 ## Packages/Environment
