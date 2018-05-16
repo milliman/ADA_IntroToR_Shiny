@@ -9,6 +9,7 @@
 
 library(shiny)
 library(ggplot2)
+library(dplyr)
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
