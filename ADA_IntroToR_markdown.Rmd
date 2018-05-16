@@ -18,6 +18,17 @@ In this very brief introduction to R, we work up to a few examples from two popu
 
 **You can pull this entire repo down from GitHub using this url: https://github.com/milliman/ADA_IntroToR_Shiny.git **
 
+# Packages
+```{r, message = F, warning = F}
+# install.packages(c("dplyr", "ggplot2"))
+library(dplyr)
+library(ggplot2)
+```
+```{r}
+sessionInfo()$R.version$version.string
+sapply(sessionInfo()$otherPkgs, function(x) x$Version)
+```
+
 # Objects
 
 ## Scalars
@@ -92,9 +103,6 @@ mattysdf <- readRDS("iris.RDS")
 
 # Data wrangling
 We turn to our favorite data wrangling package, dplyr. 
-```{r}
-library(dplyr)
-```
 
 ## Select specific columns
 ```{r}
@@ -150,10 +158,6 @@ hist(x = faithful$waiting,
 ```
 
 ## ggplot
-```{r}
-library(ggplot2)
-```
-
 ### Scatter plot
 ```{r}
 mattysnewdf2 %>%

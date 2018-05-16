@@ -1,3 +1,12 @@
+## ---- message = F, warning = F-------------------------------------------
+# install.packages(c("dplyr", "ggplot2"))
+library(dplyr)
+library(ggplot2)
+
+## ------------------------------------------------------------------------
+sessionInfo()$R.version$version.string
+sapply(sessionInfo()$otherPkgs, function(x) x$Version)
+
 ## ------------------------------------------------------------------------
 1 + 1
 a <- 1 + 1
@@ -53,9 +62,6 @@ saveRDS(object = iris,
 mattysdf <- readRDS("iris.RDS")
 
 ## ------------------------------------------------------------------------
-library(dplyr)
-
-## ------------------------------------------------------------------------
 mattysdf %>%
   select(Petal.Length, Species) %>%
   head(5)
@@ -92,9 +98,6 @@ hist(x = faithful$waiting,
 
 hist(x = faithful$waiting,
      breaks = seq(min(faithful$waiting), max(faithful$waiting), length.out = 20 + 1))
-
-## ------------------------------------------------------------------------
-library(ggplot2)
 
 ## ------------------------------------------------------------------------
 mattysnewdf2 %>%
