@@ -1,12 +1,13 @@
 # ADA_IntroToR_Shiny
 ## Purpose
-The purpose of this repository is to provide documents for a basic introduction to some of R's strengths, tailored to a group of students studying programming (but not specifcally R). The topics include plotting (ggplot), data wrangling (dplyr), interactive applications (shiny), and the general friendliness of RStudio as a GUI.  
+The purpose of this repository is to provide documents for a basic introduction to some of R's strengths, tailored to a group of students studying programming (but not specifcally R). The topics include plotting (ggplot), data wrangling (dplyr), interactive applications (shiny), fitting statistical models, and the general friendliness of RStudio as a GUI.  
 
 The repository includes: 
 + an R markdown file (.Rmd) with some basic code
 + corresponding R script (.R) with all the code from the R markdown file 
-+ basic Shiny application, built on top of RStudio and Shiny's default Old Faithfull Geyser application
-+ fitting statistical models
++ basic Shiny application
+  + the first tab is the default Shiny app where users can manipulate a histogram on Old Faithful Geyser data
+  + the second tab gives the user the ability to create scatter plots on the iris data
 + the iris dataset, saved as both .csv and .RDS
 
 ## Packages/Environment
