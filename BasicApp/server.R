@@ -24,8 +24,10 @@ shinyServer(function(input, output) {
   })
   
   output$scatterPlot <- renderPlot({
-    plot(x = iris[[input$xvar]],
-         y = iris[[input$yvar]])
+    iris %>%
+      ggplot(mapping = aes_string(x = input$xvar, y = input$yvar)) +
+      geom_point(mapping = aes(color = Species)) +
+      geom_smooth(method = "lm")
   })
   
 })
