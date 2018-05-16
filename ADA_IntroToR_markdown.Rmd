@@ -9,12 +9,14 @@ output:
 ---
 
 # Welcome to R
-In this very brief introduction to R, we work up to a few examples from two popular packages: *dplyr* for data wrangling and *ggplot2* for plotting. Additionally, we give two examples of some common statistical models. We will use this code later in a Shiny application. These topics comprise some of R's greatest strengths:
+In this very brief introduction to R, we work up to a few examples from two popular packages: *dplyr* for data wrangling and *ggplot2* for plotting. Additionally, we give two examples of some common statistical models. We will use this code later in an interactive Shiny application. These topics comprise some of R's greatest strengths:
 + Data wrangling
 + Plotting/visuals
 + Statistical model fitting
 + Interactive applications (Shiny)
 + All in a fantastic GUI (RStudio)
+
+**You can pull this entire repo down from GitHub using this url: https://github.com/milliman/ADA_IntroToR_Shiny.git **
 
 # Objects
 
