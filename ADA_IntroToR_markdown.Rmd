@@ -1,0 +1,199 @@
+---
+title: "Quick Intro to R"
+output:
+  pdf_document:
+    toc: True
+  html_document:
+    toc: True
+    df_print: paged
+---
+
+# Welcome to R
+In this very brief introduction to R, we work up to a few examples from two popular packages: *dplyr* for data wrangling and *ggplot2* for plotting. Additionally, we give two examples of some common statistical models. We will use this code later in a Shiny application. These topics comprise some of R's greatest strengths:
++ Data wrangling
++ Plotting/visuals
++ Statistical model fitting
++ Interactive applications (Shiny)
++ All in a fantastic GUI (RStudio)
+
+# Objects
+
+## Scalars
+```{r}
+1 + 1
+a <- 1 + 1
+```
+
+## Vectors
+We show various ways to make similar numeric vectors:
+```{r}
+v1 <- 1:3
+v2 <- c(1, 2, 3)
+v3 <- seq(1, 3, by = 1)
+v4 <- seq(1, 3, length.out = 3)
+v1
+v2
+v3
+v4
+v1*v2
+```
+
+## Character and factor vectors
+```{r}
+c1 <- c("one", "two", "three", "one", "two", "three")
+c1
+f1 <- factor(c("one", "two", "three", "one", "two", "three"))
+f1
+```
+
+## Matrices
+```{r cars}
+m1 <- matrix(data = c(1, 2, 3, 4, 5, 6, 7, 8, 9), 
+             nrow = 3, 
+             ncol = 3,
+             byrow = FALSE)
+
+m2 <- matrix(data = rnorm(n = 9, mean = 0, sd = 1),
+             nrow = 3,
+             ncol = 3,
+             byrow = TRUE)
+m1 * m2
+m1 %*% m2
+```
+
+## Data frame objects
+```{r}
+d <- data.frame(A = 1:4,
+                B = c("red", "blue", "yellow", "green"))
+class(d)
+class(iris)
+summary(iris)
+str(iris)
+head(iris)
+```
+
+# Reading and writing data
+## CSV
+```{r}
+write.csv(x = iris, 
+          file = "iris.csv",
+          row.names = F)
+mattysdf <- read.csv(file = "iris.csv")
+```
+
+## RDS
+```{r}
+saveRDS(object = iris,
+        file = "iris.RDS")
+mattysdf <- readRDS("iris.RDS")
+```
+
+# Data wrangling
+We turn to our favorite data wrangling package, dplyr. 
+```{r}
+library(dplyr)
+```
+
+## Select specific columns
+```{r}
+mattysdf %>%
+  select(Petal.Length, Species) %>%
+  head(5)
+```
+
+## Filter to specific rows
+```{r}
+mattysnewdf <- mattysdf %>%
+  filter(Species == "versicolor")
+```
+
+## "Mutate" on new columns
+```{r}
+mattysnewdf2 <- mattysdf %>%
+  mutate(Sepal.Area = Sepal.Width*Sepal.Length,
+         Petal.Area = Petal.Width*Petal.Length)
+```
+
+## Pivot table
+```{r}
+mattysnewdf2 %>%
+  group_by(Species) %>%
+  summarize(Sepal.Area.mean = mean(Sepal.Area),
+            Sepal.Area.sd = sd(Sepal.Area),
+            Petal.Area.mean = mean(Petal.Area),
+            Petal.Area.sd = sd(Petal.Area))
+```
+
+# Plotting
+## Base R
+### Scatter plot
+```{r}
+plot(x = mattysnewdf2$Petal.Area,
+     y = mattysnewdf2$Sepal.Area)
+
+plot(x = mattysnewdf2$Petal.Area,
+     y = mattysnewdf2$Sepal.Area,
+     col = ifelse(mattysnewdf2$Species == "setosa", "red",
+                  ifelse(mattysnewdf2$Species == "versicolor", "green", "blue")))
+```
+
+
+### Histogram
+```{r}
+hist(x = faithful$waiting,
+     breaks = 20)
+
+hist(x = faithful$waiting,
+     breaks = seq(min(faithful$waiting), max(faithful$waiting), length.out = 20 + 1))
+```
+
+## ggplot
+```{r}
+library(ggplot2)
+```
+
+### Scatter plot
+```{r}
+mattysnewdf2 %>%
+  ggplot(mapping = aes(x = Petal.Area, y = Sepal.Area)) +
+  geom_point(mapping = aes(color = Species))
+
+# More cooler scatter plot
+mattysnewdf2 %>%
+  ggplot(mapping = aes(x = Petal.Area, y = Sepal.Area)) +
+  geom_point(mapping = aes(color = Species)) +
+  geom_smooth(method = "lm")
+```
+
+### Histogram
+```{r}
+faithful %>%
+  ggplot(mapping = aes(x = waiting)) +
+  geom_histogram(bins = 20)
+
+# More betterer histogram
+mattysnewdf2 %>%
+  ggplot(mapping = aes(x = Petal.Area)) +
+  geom_histogram(mapping = aes(fill = Species),
+                 bins = 20)
+```
+
+# Statistical models
+R has a plethora of functions to create statistical models. Below we share two of the classics.
+
+## OLS
+```{r}
+faithful.model <- lm(formula = eruptions ~ waiting,
+                     data = faithful)
+summary(faithful.model)
+```
+
+## Logistic GLM
+```{r}
+iris.model <- glm(formula = versicolor ~ Sepal.Area + Petal.Area,
+                  data = mattysnewdf2 %>%
+                    mutate(versicolor = ifelse(Species == "versicolor", 1, 0)),
+                  family = binomial(link = "logit"))
+summary(iris.model)
+```
+
